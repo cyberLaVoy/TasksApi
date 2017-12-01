@@ -172,7 +172,7 @@ class Handler(BaseHTTPRequestHandler):
     def checkTODOID(self):
         ID = int(self.path[7:])
         db = TODOS_DB()
-        return db.checkTODOID( ID )
+        return db.checkTODOID( ID, self.mSession["userID"] )
 
 
 # USERS Methods

@@ -71,8 +71,8 @@ class TODOS_DB:
         self.cursor.execute(Query, (ID,))
         self.connection.commit()
 
-    def checkTODOID(self, ID):
-        self.cursor.execute("SELECT rowid FROM to_dos")
+    def checkTODOID(self, ID, user_id):
+        self.cursor.execute("SELECT rowid FROM to_dos WHERE user_id = %s", (user_id,))
         IDs = self.cursor.fetchall()
 
         available = False
