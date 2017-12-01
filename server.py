@@ -131,8 +131,10 @@ class Handler(BaseHTTPRequestHandler):
         short_description = parsed_body["short_description"][0]
         long_description = parsed_body["long_description"][0]
         priority = parsed_body["priority"][0]
-        desired_completion_date = parsed_body["desired_completion_date"][0]
-        due_date = parsed_body["due_date"][0]
+
+        desired_completion_date = parsed_body["desired_completion_date"][0].strip()
+        due_date = parsed_body["due_date"][0].strip()
+
         date_entered = parsed_body["date_entered"][0]
         completion_status = parsed_body["completion_status"][0]
         
