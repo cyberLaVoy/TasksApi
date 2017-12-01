@@ -27,7 +27,7 @@ class TODOS_DB:
         self.connection.commit()
 
     def createUsersTable(self):
-        self.cursor.execute("CREATE TABLE IF NOT EXISTS users (rowid SERIAL PRIMARY KEY, email VARCHAR(255), encrypted_password VARCHAR(255), fname VARCHAR(255), lname VARCHAR(255))"
+        self.cursor.execute("CREATE TABLE IF NOT EXISTS users (rowid SERIAL PRIMARY KEY, email VARCHAR(255), encrypted_password VARCHAR(255), fname VARCHAR(255), lname VARCHAR(255))")
         self.connection.commit()
 
 
