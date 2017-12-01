@@ -101,10 +101,10 @@ class Handler(BaseHTTPRequestHandler):
         long_description = parsed_body["long_description"][0]
 
         desired_completion_date = parsed_body["desired_completion_date"][0]
-        if not checkDateFormat(desired_completion_date):
+        if not self.checkDateFormat(desired_completion_date):
             desired_completion_date = None
         due_date = parsed_body["due_date"][0]
-        if not checkDateFormat(due_date):
+        if not self.checkDateFormat(due_date):
             due_date = None
 
         completion_status = parsed_body["completion_status"][0]
@@ -139,10 +139,10 @@ class Handler(BaseHTTPRequestHandler):
         priority = parsed_body["priority"][0]
 
         desired_completion_date = parsed_body["desired_completion_date"][0]
-        if not checkDateFormat(desired_completion_date):
+        if not self.checkDateFormat(desired_completion_date):
             desired_completion_date = None
         due_date = parsed_body["due_date"][0]
-        if not checkDateFormat(due_date):
+        if not self.checkDateFormat(due_date):
             due_date = None
 
         date_entered = parsed_body["date_entered"][0]
