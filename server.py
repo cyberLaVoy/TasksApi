@@ -101,10 +101,10 @@ class Handler(BaseHTTPRequestHandler):
         long_description = parsed_body["long_description"][0]
 
         desired_completion_date = parsed_body["desired_completion_date"][0].strip()
-        if desired_completion_date == '':
+        if desired_completion_date == 'None':
             desired_completion_date = None
         due_date = parsed_body["due_date"][0].strip()
-        if due_date == '':
+        if due_date == 'None':
             due_date = None
 
         completion_status = parsed_body["completion_status"][0]
