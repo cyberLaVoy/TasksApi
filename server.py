@@ -3,7 +3,7 @@ from urllib.parse import parse_qs
 from todos_db import TODOS_DB
 from passlib.hash import bcrypt
 from http import cookies
-import json, sys
+import json, sys, datetime
 
 import sessionStore
 gSessionStore = sessionStore.SessionStore()
@@ -100,11 +100,11 @@ class Handler(BaseHTTPRequestHandler):
         short_description = parsed_body["short_description"][0]
         long_description = parsed_body["long_description"][0]
 
-        desired_completion_date = parsed_body["desired_completion_date"][0].strip()
-        if desired_completion_date == 'None':
+        desired_completion_date = parsed_body["desired_completion_date"][0]
+        if not checkDateFormat(desired_completion_date):
             desired_completion_date = None
-        due_date = parsed_body["due_date"][0].strip()
-        if due_date == 'None':
+        due_date = parsed_body["due_date"][0]
+        if not checkDateFormat(due_date):
             due_date = None
 
         completion_status = parsed_body["completion_status"][0]
@@ -138,11 +138,11 @@ class Handler(BaseHTTPRequestHandler):
         long_description = parsed_body["long_description"][0]
         priority = parsed_body["priority"][0]
 
-        desired_completion_date = parsed_body["desired_completion_date"][0].strip()
-        if desired_completion_date == '':
+        desired_completion_date = parsed_body["desired_completion_date"][0]
+        if not checkDateFormat(desired_completion_date):
             desired_completion_date = None
-        due_date = parsed_body["due_date"][0].strip()
-        if due_date == '':
+        due_date = parsed_body["due_date"][0]
+        if not checkDateFormat(due_date):
             due_date = None
 
         date_entered = parsed_body["date_entered"][0]
@@ -258,6 +258,14 @@ class Handler(BaseHTTPRequestHandler):
             self.mCookie = cookies.SimpleCookie()
 
 # General Mehtods
+    def checkDateFormat(self, date_string):
+        valid_date = True
+        try:
+            datetime.datetime.strptime(date_string, '%Y-%m-%d')
+        except ValueError:
+            valid_date = False
+        return valid_date
+
     def getParsedBody(self):
         length = int(self.headers["Content-length"])
         body = self.rfile.read(length).decode("utf-8")
