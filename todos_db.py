@@ -49,7 +49,7 @@ class TODOS_DB:
         rows = self.cursor.fetchall()
         return rows 
 
-    def getTODO(self, ID, user_id):
+    def getTODO(self, ID):
         Query = "SELECT * FROM to_dos WHERE rowid = %s"
         self.cursor.execute(Query, (ID,))
         item = self.cursor.fetchall()
