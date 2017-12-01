@@ -133,7 +133,11 @@ class Handler(BaseHTTPRequestHandler):
         priority = parsed_body["priority"][0]
 
         desired_completion_date = parsed_body["desired_completion_date"][0].strip()
+        if desired_completion_date == '':
+            desired_completion_date = None
         due_date = parsed_body["due_date"][0].strip()
+        if due_date == '':
+            due_date = None
 
         date_entered = parsed_body["date_entered"][0]
         completion_status = parsed_body["completion_status"][0]
