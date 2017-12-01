@@ -4,7 +4,6 @@ from todos_db import TODOS_DB
 from passlib.hash import bcrypt
 from http import cookies
 import json, sys
-from bson import json_util
 
 import sessionStore
 gSessionStore = sessionStore.SessionStore()
@@ -266,7 +265,10 @@ class Handler(BaseHTTPRequestHandler):
         return parsed_body
 
     def sendJSON(self, load):
-        json_string = json.dumps(load, default=json_util.default)
+        for i in range(len(load)):
+            for key in load[i]:
+                load[i][key] = str(load[i][key])
+        json_string = json.dumps(load)
 
         self.send_response(200)
         self.send_header("Content-Type", "application/json")
