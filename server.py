@@ -3,7 +3,7 @@ from urllib.parse import parse_qs
 from todos_db import TODOS_DB
 from passlib.hash import bcrypt
 from http import cookies
-import json, sys
+import json, sys, datetime
 
 import sessionStore
 gSessionStore = sessionStore.SessionStore()
@@ -99,8 +99,14 @@ class Handler(BaseHTTPRequestHandler):
 
         short_description = parsed_body["short_description"][0]
         long_description = parsed_body["long_description"][0]
-        desired_completion_date = parsed_body["desired_completion_date"][0]
-        due_date = parsed_body["due_date"][0]
+
+        desired_completion_date = parsed_body["desired_completion_date"][0].strip()
+        if desired_completion_date == '':
+            desired_completion_date = None
+        due_date = parsed_body["due_date"][0].strip()
+        if due_date == '':
+            due_date = None
+
         completion_status = parsed_body["completion_status"][0]
         
         db = TODOS_DB()
