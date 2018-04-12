@@ -68,7 +68,6 @@ class Handler(BaseHTTPRequestHandler):
     
     def do_PUT(self):
         self.loadSession()
-
         if self.path[:7] == "/todos/":
             if "userID" in self.mSession:
                 available = self.checkTODOID()
