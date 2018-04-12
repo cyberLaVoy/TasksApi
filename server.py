@@ -97,7 +97,7 @@ class Handler(BaseHTTPRequestHandler):
             self.handle404("collection")
 
 # Puzzles methods
-self.handlePuzzleAnalysis(self):
+def handlePuzzleAnalysis(self):
     parsed_body = self.getParsedBody()
     puzzle_image = parsed_body.get("puzzle_image")[0]
     print(puzzle_image)
