@@ -230,7 +230,6 @@ def handlePuzzleAnalysis(self):
         parsed_body = self.getParsedBody()
         email = parsed_body["email"][0]
         password = parsed_body["password"][0]
-        
         email_exists = db.checkUserEmail(email)
         if email_exists:
             auth_info = db.getUserAuthInfo(email)
@@ -239,7 +238,6 @@ def handlePuzzleAnalysis(self):
                 self.mSession["userID"] = auth_info[0]["rowid"]
                 user = db.getUser(auth_info[0]["rowid"])
                 json_string = json.dumps(user)
-
                 self.send_response(201)
                 self.send_header("Content-Type", "text/plain")
                 self.end_headers()
@@ -248,7 +246,6 @@ def handlePuzzleAnalysis(self):
                 self.handle401()
         else:
             self.handle401()
-
     def loadSession(self):
         self.loadCookie()
         if "sessionID" in self.mCookie:
@@ -264,8 +261,6 @@ def handlePuzzleAnalysis(self):
             sessionID = gSessionStore.createSession()
             self.mCookie["sessionID"] = sessionID
             self.mSession = gSessionStore.getSession(sessionID)
-                
-
     def sendCookie(self):
         for morsel in self.mCookie.values():
             self.send_header("Set-Cookie", morsel.OutputString()) 
