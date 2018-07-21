@@ -1,0 +1,207 @@
+body {
+    background-image: url(images/cherry-blossom.png);
+    background-repeat: no-repeat;
+    background-size: cover;
+    margin: 0px;
+}
+h2 {
+    margin-top: 0px;
+    margin-bottom: 15px;
+}
+h4 {
+    margin-top: 10px;
+    margin-bottom: 0px;
+}
+button {
+    margin-bottom: 5px;
+}
+.error {
+    color: darkred;
+}
+.italic {
+    font-style: italic;
+}
+.todo-item {
+    padding: 3px;
+}
+.todo-item:hover {
+    border-top: 1px solid #ccc;
+    border-bottom: 1px solid #ccc;
+}
+
+.todo-title {
+    font-size: 1.2rem;
+    margin-left: 7px;
+    float: left;
+}
+.todo-title:hover {
+    color: #C02C2A;
+    cursor: pointer;
+}
+.complete-button {
+    width: 23px;
+    height: 24px;
+    background-image: url(images/buttons-sprite.jpg);
+    background-size: cover;
+    background-position: left;
+    float: left;
+    border-radius: 100px;
+}
+.complete-button:hover {
+    box-shadow: 0px .5px 1px 1px #888;
+    cursor: pointer;
+}
+.delete-button {
+    width: 23px;
+    height: 24px;
+    background-image: url(images/buttons-sprite.jpg);
+    background-size: cover;
+    background-position: right;
+    float: right;
+    border-radius: 100px;
+}
+.delete-button:hover {
+    box-shadow: 0px .5px 1px 1px #888;
+    cursor: pointer;
+}
+
+.input-button {
+    font-size: .9rem;
+}
+.input-button:hover {
+    background-color: #eee; 
+    cursor: pointer;
+}
+.input {
+    margin-bottom: 10px;
+    font-size: 1rem;
+}
+.radio:hover {
+    cursor: pointer;
+}
+
+
+.clear {
+	clear: both;
+}
+.one-half {
+    width: calc(100%/2);
+    float: left;
+}
+#wrapper {
+    width: 90vw;
+    margin: 0px auto;
+    margin-top: 75px;
+}
+
+#todolist {
+    display: none;
+    width: 75%;
+    margin: 0px auto;
+    background-color: #FBFAF6;
+    box-shadow: 0px .5px 1px 1px #888;
+    padding: 10px;
+}
+#complete {
+    display: none;
+}
+#completed-toggle:hover {
+    cursor: pointer;
+}
+
+#submission-form {
+    display: none;
+    width: 65%;
+    background-color: #FBFAF6;
+    box-shadow: 0px .5px 1px 1px #888;
+    padding: 10px;
+    font-size: 1.1rem;
+}
+#save-button {
+    width: 75px;
+}
+
+#creation-wrapper {
+    padding: 3px;
+}
+#create-button {
+    width: 23px;
+    height: 23px;
+    float: left;
+    background-image: url(images/plus-sign.png);
+    background-size: cover;
+    background-position: left;
+}
+#create-button:hover {
+    cursor: pointer;
+    box-shadow: 0px .5px 1px 1px #888;
+    background-color: #7ec0ee;
+}
+#title-input {
+    float: left;
+    min-width: calc(100% - 55px);
+    margin-left: 7px;
+    font-size: 1.2rem;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+}
+
+#opaque-background {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: #000;
+    opacity: .75;
+}
+#log-display-btn:hover {
+    cursor: pointer;
+    color: #C02C2A;
+}
+#reg-display-btn:hover {
+    cursor: pointer;
+    color: #C02C2A;
+}
+
+#login-register {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+}
+#log-form>input {
+    width: 95%;
+    font-size: .9rem;
+}
+#log-form {
+    display: none;
+    background-color: #FBFAF6;
+    margin: 100px auto;
+    padding: 25px;
+    width: 250px;
+    height: auto;
+}
+#reg-form>input {
+    width: 95%;
+    font-size: .9rem;
+}
+#reg-form {
+    display: none;
+    background-color: #FBFAF6;
+    margin: 100px auto;
+    padding: 25px;
+    width: 250px;
+    height: auto;
+}
+#welcome {
+    display: none;
+    margin: 0px auto;
+    padding: 15px;
+}
+#welcome>h2 {
+    margin-bottom: 0px;
+}

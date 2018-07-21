@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>To-do List</title>
+        <link rel="icon" href="images/favicon.ico">
+        <link rel="stylesheet" href="style.css">
+    </head>
+    <body>
+        <div id="welcome"></div>
+        <div id="wrapper">
+            <div id="opaque-background"></div>
+            <div id="login-register">
+                
+                <div id="log-form">
+                    <span id="account-created"></span>
+                    <h2 id="login-title">Login</h2>
+                    <span>Email: </span>
+                    <br>
+                    <input class="input" type="email" name="email">
+                    <br>
+                    <span>Password: </span>
+                    <br>
+                    <input class="input" type="password" name="password" id="log-password">
+                    <br>
+                    <button id="log-button" class="input-button">Login</button>
+                    <br>
+                    <span class="error" id="log-error"></span>
+
+                    <h4><span id="reg-display-btn">Create Account</span></h4>
+                </div>
+
+                
+                <div id="reg-form">
+                    <h2>Create Account</h2>
+                    <input class="input" type="text" name="fname" placeholder="First Name">
+                    <input class="input" type="text" name="lname" placeholder="Last Name">
+                    <br>
+                    <input class="input" type="text" name="email" placeholder="Email">
+                    <br>
+                    <input class="input" type="password" name="password" placeholder="Password">
+                    <br>
+                    <button id="reg-button" class="input-button">Register</button>
+                    <br>
+                    <span class="error" id="reg-error"></span>
+                    
+                    <h4><span id="log-display-btn">Login</span></h4>
+                </div>
+            </div>
+
+            
+            <div  class="one-half">
+            <div id="todolist">  
+                <h2>To-do List</h2>
+                <div id="incomplete"></div>
+                <h3 class="italic" id="completed-toggle">Completed Items</h3>
+                <div id="complete"></div>
+            </div>
+            </div>
+            
+            <div  class="one-half">
+            <div id="submission-form">
+                <h2>Item Details</h2>
+                <span >Short Description: </span>
+                <br>
+                <input style="width: 75%;" class="input" type="text" name="short_description" id="short_description">
+                <br>
+                <span>Long Description: </span>
+                <br>
+                <textarea style="width: 75%;" class="input" name="long_description"></textarea>
+                <br>
+                <span>Due Date: </span>
+                <br>
+                <input class="input" type="date" name="due_date">
+                <br>
+                <span>Desired Completion Date: </span>
+                <br>
+                <input class="input" type="date" name="desired_completion_date">
+                <br>
+                <span>Completion Status: </span>
+                <br>
+                <span class="italic">Incomplete</span> <input class="input radio" type="radio" id="incomplete-radio" name = "completion_status" value="incomplete">
+                <span class="italic">Complete</span> <input class="input radio" type="radio" id="complete-radio" name = "completion_status" value="complete">
+                <br>
+                <div id="save-container"></div>
+            </div>
+            </div>
+            <div class="clear"></div>
+            
+        </div>
+        <script src="logic.js"></script>
+    </body>
+</html>
