@@ -252,6 +252,7 @@ class Handler(BaseHTTPRequestHandler):
         for morsel in self.mCookie.values():
             self.send_header("Set-Cookie", morsel.OutputString()) 
     def loadCookie(self):
+        print(self.headers)
         if "Cookie" in self.headers:
             self.mCookie = cookies.SimpleCookie(self.headers["Cookie"]) 
         else:
