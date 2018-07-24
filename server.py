@@ -283,6 +283,7 @@ class Handler(BaseHTTPRequestHandler):
         return parsed_body
 
     def sendJSON(self, load):
+        print(load)
         for i in range(len(load)):
             for key in load[i]:
                 load[i][key] = str(load[i][key])
