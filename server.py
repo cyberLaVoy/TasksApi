@@ -133,20 +133,28 @@ class Handler(BaseHTTPRequestHandler):
 
     def handleTODOCreate(self):
         parsed_body = self.getParsedBody()
+        
+        short_description = ""
+        long_description = ""
+        priority = "1"
+        desired_completion_date = None
+        completion_status = "False"
+        date_entered = datetime.datetime.today().strftime('%Y-%m-%d')
 
-        short_description = parsed_body["short_description"][0]
-        long_description = parsed_body["long_description"][0]
-        priority = parsed_body["priority"][0]
-
-        desired_completion_date = parsed_body["desired_completion_date"][0]
-        if not self.checkDateFormat(desired_completion_date):
-            desired_completion_date = None
-        due_date = parsed_body["due_date"][0]
-        if not self.checkDateFormat(due_date):
-            due_date = None
-
-        date_entered = parsed_body["date_entered"][0]
-        completion_status = parsed_body["completion_status"][0]
+        if parsed_body.get("short_description") != None:
+            short_description = parsed_body["short_description"][0]
+        if parsed_body.get("long_description") != None:
+            long_description = parsed_body["long_description"][0]
+        if parsed_body.get("priority") != None:
+            priority = parsed_body["priority"][0]
+        if parsed_body.get("desirder_completion_date") != None:
+            desired_completion_date = parsed_body["desired_completion_date"][0]
+            if not self.checkDateFormat(desired_completion_date):
+                desired_completion_date = None
+        if parsed_body.get("due_date") != None:
+            due_date = parsed_body["due_date"][0]
+            if not self.checkDateFormat(due_date):
+                due_date = None
         
         db = TODOS_DB()
         db.createTODO(short_description, long_description, priority, 
