@@ -170,13 +170,13 @@ class Handler(BaseHTTPRequestHandler):
     def handleTODOSList(self):
         db = TODOS_DB()
         to_dos = db.getTODOS(self.mSession["userID"])
-        self.sendJSONObject(to_dos, "tasks")
+        self.sendJSONObject(to_dos, "tasks", 200)
 
     def handleTODORetrieve(self):
         ID = str(self.path[7:])
         db = TODOS_DB()
         to_do = db.getTODO(ID)
-        self.sendJSONObject(to_do, "task_item")
+        self.sendJSONObject(to_do, "task_item", 200)
 
     def checkTODOID(self):
         ID = int(self.path[7:])
@@ -229,12 +229,7 @@ class Handler(BaseHTTPRequestHandler):
             if verified:
                 self.mSession["userID"] = auth_info[0]["rowid"]
                 user = db.getUser(auth_info[0]["rowid"])
-                json_string = json.dumps(user)
-
-                self.send_response(201)
-                self.send_header("Content-Type", "text/plain")
-                self.end_headers()
-                self.wfile.write(bytes(json_string, "utf-8"))
+                self.sendJSONObject(user, "user", 201)
             else:
                 self.handle401()
         else:
@@ -282,7 +277,7 @@ class Handler(BaseHTTPRequestHandler):
         parsed_body = parse_qs(body)
         return parsed_body
 
-    def sendJSONObject(self, load, label):
+    def sendJSONObject(self, load, label, statusCode):
         jsonObject = {}
         # change datatypes of values to strings
         for i in range(len(load)):
@@ -291,8 +286,7 @@ class Handler(BaseHTTPRequestHandler):
         # wrap array gathered in a JSON object
         jsonObject[label] = load
         json_string = json.dumps(jsonObject)
-
-        self.send_response(200)
+        self.send_response(statusCode)
         self.send_header("Content-Type", "application/json")
         self.end_headers()
         self.wfile.write(bytes(json_string, "utf-8"))
