@@ -176,7 +176,7 @@ class Handler(BaseHTTPRequestHandler):
         ID = str(self.path[7:])
         db = TODOS_DB()
         to_do = db.getTODO(ID)
-        self.sendJSONObject(to_do, "task_item", 200)
+        self.sendJSONObject(to_do, "task_item", 200, True)
 
     def checkTODOID(self):
         ID = int(self.path[7:])
@@ -229,7 +229,7 @@ class Handler(BaseHTTPRequestHandler):
             if verified:
                 self.mSession["userID"] = auth_info[0]["rowid"]
                 user = db.getUser(auth_info[0]["rowid"])
-                self.sendJSONObject(user, "user", 201)
+                self.sendJSONObject(user, "user", 201, True)
             else:
                 self.handle401()
         else:
@@ -277,13 +277,14 @@ class Handler(BaseHTTPRequestHandler):
         parsed_body = parse_qs(body)
         return parsed_body
 
-    def sendJSONObject(self, load, label, statusCode):
+    def sendJSONObject(self, load, label, statusCode, singleItemRequest=False):
         jsonObject = {}
         # change datatypes of values to strings
         for i in range(len(load)):
             for key in load[i]:
                 load[i][key] = str(load[i][key])
-        # wrap array gathered in a JSON object
+        if (singleItemRequest):
+            load = load[0]
         jsonObject[label] = load
         json_string = json.dumps(jsonObject)
         self.send_response(statusCode)
