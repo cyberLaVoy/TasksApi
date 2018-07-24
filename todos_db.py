@@ -55,12 +55,12 @@ class TODOS_DB:
         item = self.cursor.fetchall()
         return item
 
-    def replaceTODO(self, short_description, long_description, 
+    def replaceTODO(self, short_description, long_description, priority,
                          desired_completion_date, due_date, 
                          completion_status, ID):
-        Query = "UPDATE to_dos SET short_description = %s, long_description = %s, desired_completion_date = %s, due_date = %s, completion_status = %s WHERE rowid = %s"
+        Query = "UPDATE to_dos SET short_description = %s, long_description = %s, priority = %s, desired_completion_date = %s, due_date = %s, completion_status = %s WHERE rowid = %s"
         self.cursor.execute(Query,
-                           (short_description, long_description,
+                           (short_description, long_description, priority,
                             desired_completion_date, due_date, 
                             completion_status, ID))
         self.connection.commit()

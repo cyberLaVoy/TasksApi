@@ -95,28 +95,38 @@ class Handler(BaseHTTPRequestHandler):
 # TODOS Methods
     
     def handleTODOReplace(self):
-        parsed_body = self.getParsedBody()
-
-        short_description = parsed_body["short_description"][0]
-        long_description = parsed_body["long_description"][0]
-
-        desired_completion_date = parsed_body["desired_completion_date"][0]
-        if not self.checkDateFormat(desired_completion_date):
-            desired_completion_date = None
-        due_date = parsed_body["due_date"][0]
-        if not self.checkDateFormat(due_date):
-            due_date = None
-
-        completion_status = parsed_body["completion_status"][0]
-        
         db = TODOS_DB()
-
+        parsed_body = self.getParsedBody()
         ID = str(self.path[7:])
-        db.replaceTODO(short_description, long_description, 
+        taskItem = db.getTODO(ID)[0]
+
+        short_description = taskItem["short_description"]
+        long_description = taskItem["long_description"]
+        desired_completion_date = taskItem["desired_completion_date"]
+        due_date = taskItem["due_date"]
+        completion_status = taskItem["completion_status"]
+        priority = taskItem["priority"]
+
+        if parsed_body.get("short_description") != None:
+            short_description = parsed_body["short_description"][0]
+        if parsed_body.get("long_description") != None:
+            long_description = parsed_body["long_description"][0]
+        if parsed_body.get("priority") != None:
+            priority = parsed_body["priority"][0]
+        if parsed_body.get("desirder_completion_date") != None:
+            desired_completion_date = parsed_body["desired_completion_date"][0]
+            if not self.checkDateFormat(desired_completion_date):
+                desired_completion_date = None
+        if parsed_body.get("due_date") != None:
+            due_date = parsed_body["due_date"][0]
+            if not self.checkDateFormat(due_date):
+                due_date = None
+
+        db.replaceTODO(short_description, long_description, priority, 
                       desired_completion_date, due_date, 
                       completion_status, ID)
-        self.send_response(200)
 
+        self.send_response(200)
         self.send_header("Content-Type", "text/plain")
         self.end_headers()
         self.wfile.write(bytes("Update successful.", "utf-8"))
