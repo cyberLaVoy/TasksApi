@@ -170,13 +170,13 @@ class Handler(BaseHTTPRequestHandler):
     def handleTODOSList(self):
         db = TODOS_DB()
         to_dos = db.getTODOS(self.mSession["userID"])
-        self.sendJSON(to_dos)
+        self.sendJSONObject(to_dos, "tasks")
 
     def handleTODORetrieve(self):
         ID = str(self.path[7:])
         db = TODOS_DB()
         to_do = db.getTODO(ID)
-        self.sendJSON(to_do)
+        self.sendJSONObject(to_do, "task_item")
 
     def checkTODOID(self):
         ID = int(self.path[7:])
@@ -282,12 +282,15 @@ class Handler(BaseHTTPRequestHandler):
         parsed_body = parse_qs(body)
         return parsed_body
 
-    def sendJSON(self, load):
-        print(load)
+    def sendJSONObject(self, load, label):
+        jsonObject = {}
+        # change datatypes of values to strings
         for i in range(len(load)):
             for key in load[i]:
                 load[i][key] = str(load[i][key])
-        json_string = json.dumps(load)
+        # wrap array gathered in a JSON object
+        jsonObject[label] = load
+        json_string = json.dumps(jsonObject)
 
         self.send_response(200)
         self.send_header("Content-Type", "application/json")
