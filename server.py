@@ -138,6 +138,7 @@ class Handler(BaseHTTPRequestHandler):
         long_description = ""
         priority = "1"
         desired_completion_date = None
+        due_date = None
         completion_status = "False"
         date_entered = datetime.datetime.today().strftime('%Y-%m-%d')
 
