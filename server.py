@@ -58,13 +58,16 @@ class Handler(BaseHTTPRequestHandler):
             self.handleUserCreate()
         elif self.path == "/sessions":
             self.handleCreateSession()
+
+        elif self.path == "puzzle":
+            self.handlePuzzleAnalysis()
+
         else:
             self.handle404("collection")
         return
     
     def do_PUT(self):
         self.loadSession()
-
         if self.path[:7] == "/todos/":
             if "userID" in self.mSession:
                 available = self.checkTODOID()
@@ -92,7 +95,21 @@ class Handler(BaseHTTPRequestHandler):
         else:
             self.handle404("collection")
 
-# TODOS Methods
+# Puzzles methods
+def handlePuzzleAnalysis(self):
+    parsed_body = self.getParsedBody()
+    puzzle_image = parsed_body.get("puzzle_image")[0]
+    print(puzzle_image)
+    boardLayout = {"board_layout": "2s0n7s0n0n0n1s0n4s0n3s9s1s0n2s0n0n0n0n0n6s4s0n8s7s0n0n0n6s0n0n0n0n3s0n2s5s0n7s0n9s0n0n1s0n0n0n2s1s0n0n9s0n4s0n0n9s0n0n0n4s0n6s0n5s0n3s0n6s0n0n0n0n3s0n2s0n0n0n7s0n"}
+    jsonData = json.loads(board_layout)
+    self.send_response(201)
+    self.send_header("Content-Type", "application/json")
+    self.end_headers()
+    self.wfile.write(bytes(jsonData, "utf-8"))
+
+
+
+# TODOS methods
     
     def handleTODOReplace(self):
         db = TODOS_DB()
@@ -234,7 +251,6 @@ class Handler(BaseHTTPRequestHandler):
         parsed_body = self.getParsedBody()
         email = parsed_body["email"][0]
         password = parsed_body["password"][0]
-        
         email_exists = db.checkUserEmail(email)
         if email_exists:
             auth_info = db.getUserAuthInfo(email)
@@ -242,12 +258,19 @@ class Handler(BaseHTTPRequestHandler):
             if verified:
                 self.mSession["userID"] = auth_info[0]["rowid"]
                 user = db.getUser(auth_info[0]["rowid"])
+<<<<<<< HEAD
                 self.sendJSONObject(user, "user", 201, True)
+=======
+                json_string = json.dumps(user)
+                self.send_response(201)
+                self.send_header("Content-Type", "text/plain")
+                self.end_headers()
+                self.wfile.write(bytes(json_string, "utf-8"))
+>>>>>>> c3e81db3295dc8332a2c2e6408c32dcd3d28089b
             else:
                 self.handle401()
         else:
             self.handle401()
-
     def loadSession(self):
         self.loadCookie()
         if "sessionID" in self.mCookie:
@@ -263,8 +286,6 @@ class Handler(BaseHTTPRequestHandler):
             sessionID = gSessionStore.createSession()
             self.mCookie["sessionID"] = sessionID
             self.mSession = gSessionStore.getSession(sessionID)
-                
-
     def sendCookie(self):
         for morsel in self.mCookie.values():
             self.send_header("Set-Cookie", morsel.OutputString()) 
