@@ -258,15 +258,7 @@ def handlePuzzleAnalysis(self):
             if verified:
                 self.mSession["userID"] = auth_info[0]["rowid"]
                 user = db.getUser(auth_info[0]["rowid"])
-<<<<<<< HEAD
                 self.sendJSONObject(user, "user", 201, True)
-=======
-                json_string = json.dumps(user)
-                self.send_response(201)
-                self.send_header("Content-Type", "text/plain")
-                self.end_headers()
-                self.wfile.write(bytes(json_string, "utf-8"))
->>>>>>> c3e81db3295dc8332a2c2e6408c32dcd3d28089b
             else:
                 self.handle401()
         else:
