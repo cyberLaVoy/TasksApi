@@ -93,8 +93,8 @@ class Handler(BaseHTTPRequestHandler):
         todo = {"short_description":"", 
                 "long_description":"",
                 "priority":"",
-                "desired_completion_date":""
-                "due_date",""
+                "desired_completion_date":"",
+                "due_date":"",
                 "completion_status":""}
         for key in todo:
             if parsed_body.get(key) is not None:
