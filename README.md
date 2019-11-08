@@ -7,10 +7,10 @@
 * short_description
 * long_description
 * priority
-* desired_completion_date
-* due_date
-* date_entered
-* completion_status
+* desired_completion_date (e.g. 2019-11-15)
+* due_date (e.g. 2019-11-23)
+* completion_status (bool: True or False)
+* date_entered (set upon initial creation)
 
 
 #### users
