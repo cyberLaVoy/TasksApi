@@ -168,6 +168,9 @@ class Handler(BaseHTTPRequestHandler):
                 due_date = None
         
         db = TODOS_DB()
+        print(short_description, long_description, priority, 
+                      desired_completion_date, due_date, 
+                      date_entered, completion_status, self.mSession["userID"])
         db.createTODO(short_description, long_description, priority, 
                       desired_completion_date, due_date, 
                       date_entered, completion_status, self.mSession["userID"])
