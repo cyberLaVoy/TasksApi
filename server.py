@@ -17,7 +17,6 @@ class Handler(BaseHTTPRequestHandler):
 
     def do_OPTIONS(self):
         self.loadSession()
-
         self.send_response(200)
         self.send_header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS") 
         self.send_header("Access-Control-Allow-Headers", "Content-Type")
@@ -26,7 +25,6 @@ class Handler(BaseHTTPRequestHandler):
 
     def do_GET(self):
         self.loadSession()
-
         if self.path == "/todos":
             if "userID" in self.mSession:
                 self.handleTODOSList()
@@ -47,13 +45,11 @@ class Handler(BaseHTTPRequestHandler):
 
     def do_POST(self):
         self.loadSession()
-
         if self.path == "/todos":
             if "userID" in self.mSession:
                 self.handleTODOCreate()
             else:
                 self.handle401()
-
         elif self.path =="/users":
             self.handleUserCreate()
         elif self.path == "/sessions":
@@ -78,7 +74,6 @@ class Handler(BaseHTTPRequestHandler):
 
     def do_DELETE(self):
         self.loadSession()
-
         if self.path[:7] == "/todos/":
             if "userID" in self.mSession:
                 available = self.checkTODOID()
@@ -149,10 +144,9 @@ class Handler(BaseHTTPRequestHandler):
         desired_completion_date = None
         due_date = None
         completion_status = "False"
-        date_entered = datetime.datetime.today().strftime('%Y-%m-%d')
+        date_entered = datetime.datetime.today().strftime("%Y-%m-%d")
 
-        if parsed_body.get("short_description") != None:
-            short_description = parsed_body["short_description"][0]
+        short_description = parsed_body["short_description"][0]
         if parsed_body.get("long_description") != None:
             long_description = parsed_body["long_description"][0]
         if parsed_body.get("priority") != None:
