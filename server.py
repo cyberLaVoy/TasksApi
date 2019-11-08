@@ -87,7 +87,22 @@ class Handler(BaseHTTPRequestHandler):
             self.handle404("collection")
 
 # TODOS methods
-    
+
+    def parseTODOQueryBody():
+        parsed_body = self.getParsedBody()
+        print(parsed_body)
+        short_description = parsed_body["short_description"][0]
+        long_description = parsed_body["long_description"][0]
+        priority = parsed_body["priority"][0]
+        desired_completion_date = parsed_body["desired_completion_date"][0]
+        if not self.checkDateFormat(desired_completion_date):
+            desired_completion_date = None
+        due_date = parsed_body["due_date"][0]
+        if not self.checkDateFormat(due_date):
+            due_date = None
+        completion_status = parsed_body["completion_status"][0]
+
+   
     def handleTODOReplace(self):
         db = TODOS_DB()
         parsed_body = self.getParsedBody()
@@ -151,9 +166,6 @@ class Handler(BaseHTTPRequestHandler):
         date_entered = datetime.datetime.today().strftime("%Y-%m-%d")
         
         db = TODOS_DB()
-        print(short_description, long_description, priority, 
-                      desired_completion_date, due_date, 
-                      date_entered, completion_status, self.mSession["userID"])
         db.createTODO(short_description, long_description, priority, 
                       desired_completion_date, due_date, 
                       date_entered, completion_status, self.mSession["userID"])
