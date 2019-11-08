@@ -88,7 +88,7 @@ class Handler(BaseHTTPRequestHandler):
 
 # TODOS methods
 
-    def parseTODOQueryBody():
+    def parseTODOQueryBody(self):
         parsed_body = self.getParsedBody()
         print(parsed_body)
         short_description = parsed_body["short_description"][0]
