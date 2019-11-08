@@ -151,6 +151,7 @@ class Handler(BaseHTTPRequestHandler):
         self.wfile.write(bytes("Delete successful.", "utf-8"))
 
     def handleTODOCreate(self):
+        self.parseTODOQueryBody()
         parsed_body = self.getParsedBody()
         short_description = parsed_body["short_description"][0]
         long_description = parsed_body["long_description"][0]
