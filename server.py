@@ -58,10 +58,6 @@ class Handler(BaseHTTPRequestHandler):
             self.handleUserCreate()
         elif self.path == "/sessions":
             self.handleCreateSession()
-
-        elif self.path == "puzzle":
-            self.handlePuzzleAnalysis()
-
         else:
             self.handle404("collection")
         return
@@ -94,20 +90,6 @@ class Handler(BaseHTTPRequestHandler):
                 self.handle401()
         else:
             self.handle404("collection")
-
-# Puzzles methods
-def handlePuzzleAnalysis(self):
-    parsed_body = self.getParsedBody()
-    puzzle_image = parsed_body.get("puzzle_image")[0]
-    print(puzzle_image)
-    boardLayout = {"board_layout": "2s0n7s0n0n0n1s0n4s0n3s9s1s0n2s0n0n0n0n0n6s4s0n8s7s0n0n0n6s0n0n0n0n3s0n2s5s0n7s0n9s0n0n1s0n0n0n2s1s0n0n9s0n4s0n0n9s0n0n0n4s0n6s0n5s0n3s0n6s0n0n0n0n3s0n2s0n0n0n7s0n"}
-    jsonData = json.loads(board_layout)
-    self.send_response(201)
-    self.send_header("Content-Type", "application/json")
-    self.end_headers()
-    self.wfile.write(bytes(jsonData, "utf-8"))
-
-
 
 # TODOS methods
     
