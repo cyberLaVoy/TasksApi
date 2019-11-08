@@ -90,12 +90,12 @@ class Handler(BaseHTTPRequestHandler):
 
     def parseTODORequestBody(self):
         parsed_body = self.getParsedBody()
-        todo = {"short_description":"", 
-                "long_description":"",
-                "priority":"",
-                "desired_completion_date":"",
-                "due_date":"",
-                "completion_status":""}
+        todo = {"short_description":None, 
+                "long_description":None,
+                "priority":None,
+                "desired_completion_date":None,
+                "due_date":None,
+                "completion_status":None}
         for key in todo:
             if parsed_body.get(key) is not None:
                 todo[key] = parsed_body[key][0]
