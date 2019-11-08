@@ -88,20 +88,18 @@ class Handler(BaseHTTPRequestHandler):
 
 # TODOS methods
 
-    def parseTODOQueryBody(self):
+    def parseTODORequestBody(self):
         parsed_body = self.getParsedBody()
-        print(parsed_body)
-        short_description = parsed_body["short_description"][0]
-        long_description = parsed_body["long_description"][0]
-        priority = parsed_body["priority"][0]
-        desired_completion_date = parsed_body["desired_completion_date"][0]
-        if not self.checkDateFormat(desired_completion_date):
-            desired_completion_date = None
-        due_date = parsed_body["due_date"][0]
-        if not self.checkDateFormat(due_date):
-            due_date = None
-        completion_status = parsed_body["completion_status"][0]
-
+        todo = {"short_description":"", 
+                "long_description":"",
+                "priority":"",
+                "desired_completion_date":""
+                "due_date",""
+                "completion_status":""}
+        for key in todo:
+            if parsed_body.get(key) is not None:
+                todo[key] = parsed_body[key][0]
+        return todo
    
     def handleTODOReplace(self):
         db = TODOS_DB()
@@ -151,26 +149,10 @@ class Handler(BaseHTTPRequestHandler):
         self.wfile.write(bytes("Delete successful.", "utf-8"))
 
     def handleTODOCreate(self):
-        self.parseTODOQueryBody()
-        parsed_body = self.getParsedBody()
-        short_description = parsed_body["short_description"][0]
-        long_description = parsed_body["long_description"][0]
-        priority = parsed_body["priority"][0]
-        desired_completion_date = parsed_body["desired_completion_date"][0]
-        if not self.checkDateFormat(desired_completion_date):
-            desired_completion_date = None
-        due_date = parsed_body["due_date"][0]
-        if not self.checkDateFormat(due_date):
-            due_date = None
-        completion_status = parsed_body["completion_status"][0]
-
-        date_entered = datetime.datetime.today().strftime("%Y-%m-%d")
-        
+        todo = self.parseTODORequestBody()
+        todo["date_entered"] = datetime.datetime.today().strftime("%Y-%m-%d")
         db = TODOS_DB()
-        db.createTODO(short_description, long_description, priority, 
-                      desired_completion_date, due_date, 
-                      date_entered, completion_status, self.mSession["userID"])
-
+        db.createTODO(todo, self.mSession["userID"])
         self.send_response(201)
         self.send_header("Content-Type", "text/plain")
         self.end_headers()

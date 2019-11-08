@@ -33,14 +33,12 @@ class TODOS_DB:
 
 # TODOS operations
 
-    def createTODO(self, short_description, long_description, priority, 
-                         desired_completion_date, due_date, date_entered, completion_status, user_id):
+    def createTODO(self, todo, user_id):
         Query = "INSERT INTO to_dos (short_description, long_description, priority, desired_completion_date, due_date, date_entered, completion_status, user_id) VALUES (%s, %s, %s, %s, %s, %s, %s, %s)"
-
         self.cursor.execute(Query, 
-                           (short_description, long_description, priority,
-                            desired_completion_date, due_date, 
-                            date_entered, completion_status, user_id))
+                           (todo["short_description"], todo["long_description"], todo["priority"],
+                            todo["desired_completion_date"], todo["due_date"], 
+                            todo["date_entered"], todo["completion_status"], user_id))
         self.connection.commit()
 
     def getTODOS(self, user_id):
