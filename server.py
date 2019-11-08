@@ -137,28 +137,18 @@ class Handler(BaseHTTPRequestHandler):
 
     def handleTODOCreate(self):
         parsed_body = self.getParsedBody()
-        
-        short_description = ""
-        long_description = ""
-        priority = "1"
-        desired_completion_date = None
-        due_date = None
-        completion_status = "False"
-        date_entered = datetime.datetime.today().strftime("%Y-%m-%d")
-
         short_description = parsed_body["short_description"][0]
-        if parsed_body.get("long_description") != None:
-            long_description = parsed_body["long_description"][0]
-        if parsed_body.get("priority") != None:
-            priority = parsed_body["priority"][0]
-        if parsed_body.get("desirder_completion_date") != None:
-            desired_completion_date = parsed_body["desired_completion_date"][0]
-            if not self.checkDateFormat(desired_completion_date):
-                desired_completion_date = None
-        if parsed_body.get("due_date") != None:
-            due_date = parsed_body["due_date"][0]
-            if not self.checkDateFormat(due_date):
-                due_date = None
+        long_description = parsed_body["long_description"][0]
+        priority = parsed_body["priority"][0]
+        desired_completion_date = parsed_body["desired_completion_date"][0]
+        if not self.checkDateFormat(desired_completion_date):
+            desired_completion_date = None
+        due_date = parsed_body["due_date"][0]
+        if not self.checkDateFormat(due_date):
+            due_date = None
+        completion_status = parsed_body["completion_status"][0]
+
+        date_entered = datetime.datetime.today().strftime("%Y-%m-%d")
         
         db = TODOS_DB()
         print(short_description, long_description, priority, 
@@ -266,12 +256,11 @@ class Handler(BaseHTTPRequestHandler):
 
 # General Mehtods
     def checkDateFormat(self, date_string):
-        valid_date = True
         try:
             datetime.datetime.strptime(date_string, '%Y-%m-%d')
         except ValueError:
-            valid_date = False
-        return valid_date
+            return None
+        return date_string 
 
     def getParsedBody(self):
         length = int(self.headers["Content-length"])
